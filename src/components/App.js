@@ -20,6 +20,21 @@ class App extends Component {
     alert: false,
   };
 
+  componentDidMount() {
+    const persistedContacts = localStorage.getItem('contacts');
+    if (persistedContacts) {
+      this.setState({
+        contacts: JSON.parse(persistedContacts),
+      });
+    }
+  }
+
+  componentDidUpdate(prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   
 
   chengeFilter = filter => {
